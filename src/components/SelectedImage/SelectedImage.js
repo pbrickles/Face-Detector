@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import * as faceapi from "face-api.js";
 
 import "./SelectedImage.css";
@@ -6,6 +6,8 @@ import "./SelectedImage.css";
 const SelectedImage = ({img}) => {
   const selected = useRef();
   const canvas = useRef();
+
+  const [processing, setProcessing] = useState(true);
 
   const detectFaces = async () => {
     const MODEL_URL = `${process.env.PUBLIC_URL}/models`;
@@ -34,20 +36,25 @@ const SelectedImage = ({img}) => {
 
     faceapi.draw.drawFaceLandmarks(canvas.current, resizedResults);
     const minProbability = 0.05;
-    faceapi.draw.drawFaceExpressions(
+    await faceapi.draw.drawFaceExpressions(
       canvas.current,
       resizedResults,
       minProbability
     );
+
+    setProcessing(false);
   };
 
   useEffect(() => {
-    canvas.current.getContext("2d").clearRect(0, 0, canvas.current.width, canvas.current.height);
+    canvas.current
+      .getContext("2d")
+      .clearRect(0, 0, canvas.current.width, canvas.current.height);
     detectFaces();
   }, [img]);
 
   return (
     <div className="selected-image">
+      {processing && <span>Working out your expression...</span>}
       <div className="selected-image__wrapper">
         <img
           ref={selected}
@@ -57,8 +64,7 @@ const SelectedImage = ({img}) => {
         />
         <canvas ref={canvas} className="selected-image__overlay" />
       </div>
-
-      <p>Selected Image</p>
+      {!processing && <span>Select another image from the Gallery or take a new one</span>}
     </div>
   );
 };
