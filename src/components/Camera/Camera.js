@@ -7,7 +7,7 @@ import Gallery from "../Gallery/Gallery";
 
 const Camera = props => {
   const camera = useRef();
-  const [showCamera, setShowCamera] = useState(false);
+  const [showCamera, setShowCamera] = useState(true);
   const [photos, setPhotos] = useState([]);
   const toggleCamera = () => setShowCamera(!showCamera);
   const capture = () => {
@@ -17,7 +17,7 @@ const Camera = props => {
   }
   return (
     <div className="camera">
-      {showCamera && <Webcam audio={false} ref={camera} />}
+      {showCamera && <Webcam audio={false} ref={camera} height={400} width={400} />}
       <div className="camera__button-container">
         <Button onClick={toggleCamera}>
           {showCamera ? "Hide " : "Show "}Camera

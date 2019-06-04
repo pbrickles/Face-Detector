@@ -1,0 +1,17 @@
+.selected-image {
+  display: block;
+  padding-top: 2rem;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(132, 197, 205)
+}
+
+.selected-image__wrapper {
+  position: relative;
+  min-height: 400px;
+}
+
+.selected-image__image, .selected-image__overlay {
+  display: block;
+  position: absolute;
+}

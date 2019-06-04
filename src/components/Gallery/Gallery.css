@@ -1,0 +1,23 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #aaa;
+}
+
+.gallery__container {
+  margin-top: 2rem;
+  width: 100vw;
+  min-height: 500px;
+  background-color: #aaa;
+}
+
+.gallery__container h2 {
+  text-align: center;
+}
+
+.gallery__photo {
+  margin: 1rem;
+  width: 150px;
+  height: 120px;
+}
