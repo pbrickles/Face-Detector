@@ -14,17 +14,24 @@ const Camera = props => {
     const imgSrc = camera.current.getScreenshot();
     const newPhotos = [...photos, imgSrc];
     setPhotos(newPhotos);
-  }
+  };
+  const reset = () => {
+    setPhotos([]);
+    setShowCamera(true);
+  };
   return (
     <div className="camera">
-      {showCamera && <Webcam audio={false} ref={camera} height={400} width={400} />}
+      {showCamera && (
+        <Webcam audio={false} ref={camera} height={400} width={400} />
+      )}
       <div className="camera__button-container">
         <Button onClick={toggleCamera}>
           {showCamera ? "Hide " : "Show "}Camera
         </Button>
         {showCamera && <Button onClick={capture}>Take Photo</Button>}
+        {photos.length > 0 && <Button onClick={reset}>Reset</Button>}
       </div>
-      <Gallery photos={photos} />
+      {photos.length > 0 && <Gallery photos={photos} />}
     </div>
   );
 };
