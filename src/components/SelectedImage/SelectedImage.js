@@ -1,47 +1,20 @@
 import React, {useEffect, useRef, useState} from "react";
-import * as faceapi from "face-api.js";
+import {detectFaces, drawResults} from "../../helpers/detectFaces";
 
 import "./SelectedImage.css";
+import Results from "../Results/Results";
 
 const SelectedImage = ({img}) => {
   const selected = useRef();
   const canvas = useRef();
 
   const [processing, setProcessing] = useState(true);
+  const [results, setResults] = useState([]);
 
-  const detectFaces = async () => {
-    const MODEL_URL = `${process.env.PUBLIC_URL}/models`;
-
-    await faceapi.loadSsdMobilenetv1Model(MODEL_URL);
-    await faceapi.loadFaceLandmarkModel(MODEL_URL);
-    await faceapi.loadFaceDetectionModel(MODEL_URL);
-    await faceapi.loadFaceExpressionModel(MODEL_URL);
-    await faceapi.loadFaceRecognitionModel(MODEL_URL);
-
-    if (!selected.current) {
-      return;
-    }
-
-    const displaySize = {
-      width: selected.current.width,
-      height: selected.current.height,
-    };
-
-    const faces = await faceapi
-      .detectAllFaces(selected.current)
-      .withFaceLandmarks()
-      .withFaceExpressions();
-
-    const resizedResults = faceapi.resizeResults(faces, displaySize);
-
-    faceapi.draw.drawFaceLandmarks(canvas.current, resizedResults);
-    const minProbability = 0.05;
-    await faceapi.draw.drawFaceExpressions(
-      canvas.current,
-      resizedResults,
-      minProbability
-    );
-
+  const getFaces = async () => {
+    setProcessing(true);
+    const faces = await detectFaces(selected.current);
+    setResults(faces);
     setProcessing(false);
   };
 
@@ -49,7 +22,7 @@ const SelectedImage = ({img}) => {
     canvas.current
       .getContext("2d")
       .clearRect(0, 0, canvas.current.width, canvas.current.height);
-    detectFaces();
+    getFaces();
   }, [img]);
 
   return (
@@ -64,7 +37,11 @@ const SelectedImage = ({img}) => {
         />
         <canvas ref={canvas} className="selected-image__overlay" />
       </div>
-      {!processing && <span>Select another image from the Gallery or take a new one</span>}
+      {!processing && results && (
+        <div className="results__container">
+          <Results results={results} />
+        </div>
+      )}
     </div>
   );
 };

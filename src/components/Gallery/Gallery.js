@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import classnames from "classnames";
 import SelectedImage from "../SelectedImage/SelectedImage";
 
@@ -6,6 +6,12 @@ import "./Gallery.css";
 
 const Gallery = ({photos}) => {
   const [selected, setSelected] = useState(undefined);
+
+  useEffect(() => {
+    if(photos.length > 0) {
+      setSelected(photos[0])
+    }
+  }, [photos])
 
   if (photos.length < 1) {
     return null;

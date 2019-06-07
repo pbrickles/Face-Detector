@@ -4,9 +4,11 @@ import Webcam from "react-webcam";
 import "./Camera.css";
 import Button from "../Button/Button";
 import Gallery from "../Gallery/Gallery";
+import SelectedImage from "../SelectedImage/SelectedImage";
 
 const Camera = props => {
   const camera = useRef();
+  const [photo, setPhoto] = useState(undefined);
   const [showCamera, setShowCamera] = useState(true);
   const [photos, setPhotos] = useState([]);
   const toggleCamera = () => setShowCamera(!showCamera);
@@ -14,8 +16,10 @@ const Camera = props => {
     const imgSrc = camera.current.getScreenshot();
     const newPhotos = [...photos, imgSrc];
     setPhotos(newPhotos);
+    setPhoto(imgSrc);
   };
   const reset = () => {
+    setPhoto(undefined);
     setPhotos([]);
     setShowCamera(true);
   };
@@ -31,7 +35,12 @@ const Camera = props => {
         {showCamera && <Button onClick={capture}>Take Photo</Button>}
         {photos.length > 0 && <Button onClick={reset}>Reset</Button>}
       </div>
-      {photos.length > 0 && <Gallery photos={photos} />}
+      {photo && (
+        <div className="camera selected-image">
+          <SelectedImage img={photo} />
+        </div>
+      )}
+      {/* {photos.length > 0 && <Gallery photos={photos} />} */}
     </div>
   );
 };

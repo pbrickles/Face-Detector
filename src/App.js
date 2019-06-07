@@ -1,6 +1,8 @@
 import React from "react";
 import Camera from "./components/Camera/Camera";
 
+import "./App.css";
+
 function App() {
   
 
