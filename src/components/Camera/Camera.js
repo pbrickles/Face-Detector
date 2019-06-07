@@ -1,10 +1,29 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import Webcam from "react-webcam";
 
 import "./Camera.css";
 import Button from "../Button/Button";
-import Gallery from "../Gallery/Gallery";
+// import Gallery from "../Gallery/Gallery";
 import SelectedImage from "../SelectedImage/SelectedImage";
+
+const VideoFeed = () => {
+  const videoEl = useRef(null)
+
+  useEffect(() => {
+    if (!videoEl) {
+      return
+    }
+    navigator.mediaDevices.getUserMedia({video:true})
+      .then(stream => {
+        let video = videoEl.current
+        video.srcObject = stream
+        video.play()
+      })
+  }, [videoEl])
+
+  return <video ref={videoEl} />
+}
+
 
 const Camera = props => {
   const camera = useRef();
@@ -12,6 +31,7 @@ const Camera = props => {
   const [showCamera, setShowCamera] = useState(true);
   const [photos, setPhotos] = useState([]);
   const toggleCamera = () => setShowCamera(!showCamera);
+
   const capture = () => {
     const imgSrc = camera.current.getScreenshot();
     const newPhotos = [...photos, imgSrc];
@@ -40,6 +60,7 @@ const Camera = props => {
           <SelectedImage img={photo} />
         </div>
       )}
+      <VideoFeed />
       {/* {photos.length > 0 && <Gallery photos={photos} />} */}
     </div>
   );
