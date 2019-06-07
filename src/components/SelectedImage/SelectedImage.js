@@ -15,6 +15,7 @@ const SelectedImage = ({img}) => {
     setProcessing(true);
     const faces = await detectFaces(selected.current);
     setResults(faces);
+    drawResults(faces, canvas.current, "landmarks");
     setProcessing(false);
   };
 

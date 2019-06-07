@@ -1,14 +1,14 @@
 import * as faceapi from "face-api.js";
 
-export const detectFaces = async (image) => {
+export const detectFaces = async image => {
   if (!image) {
     return;
   }
   const MODEL_URL = `${process.env.PUBLIC_URL}/models`;
 
   await faceapi.loadMtcnnModel(MODEL_URL);
-  await faceapi.loadFaceLandmarkModel(MODEL_URL);
   await faceapi.loadFaceDetectionModel(MODEL_URL);
+  await faceapi.loadFaceLandmarkModel(MODEL_URL);
   await faceapi.loadFaceExpressionModel(MODEL_URL);
 
   const displaySize = {
@@ -22,17 +22,20 @@ export const detectFaces = async (image) => {
     .withFaceExpressions();
 
   return faceapi.resizeResults(faces, displaySize);
+};
 
-  
- 
-}
-
-const drawResults = async (results, canvas, type) => {
-  if(type === "faces") {
-    await faceapi.draw.drawFaceLandmarks(canvas, results);
+export const drawResults = async (results, canvas, type) => {
+  switch (type) {
+    case "landmarks":
+      faceapi.draw.drawFaceLandmarks(canvas, results, 0.5);
+      break;
+    case "expressions":
+      faceapi.draw.drawFaceExpressions(canvas, results, 0.5);
+      break;
+    case "box":
+      faceapi.draw.DrawBoxOptions(canvas, results, 0.5);
+      break;
+    default:
+      break;
   }
-  if(type === "expressions") {
-    await faceapi.draw.drawFaceExpressions(canvas, results, 0.05);
-  }
-  
-}
+};
