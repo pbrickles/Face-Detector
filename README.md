@@ -2,6 +2,8 @@ A face detection concept using [React](https://reactjs.org/) and the [face-api.j
 
 It includes a photo capture mode with a gallery, and a real-time face detection mode.
 
+Originally put together for a STEM Careers fair at [Chorlton C of E Primary School, Manchester, UK](http://www.chorltonce.co.uk/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
