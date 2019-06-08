@@ -1,15 +1,22 @@
 import * as faceapi from "face-api.js";
 
+
+export const loadModels = () => {
+  const MODEL_URL = `${process.env.PUBLIC_URL}/models`;
+
+  return Promise.all([
+    faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+    faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+    faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+    faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL)
+  ])
+}
+
 export const detectFaces = async image => {
   if (!image) {
     return;
   }
-  const MODEL_URL = `${process.env.PUBLIC_URL}/models`;
-
-  await faceapi.loadMtcnnModel(MODEL_URL);
-  await faceapi.loadFaceDetectionModel(MODEL_URL);
-  await faceapi.loadFaceLandmarkModel(MODEL_URL);
-  await faceapi.loadFaceExpressionModel(MODEL_URL);
+  
 
   const displaySize = {
     width: image.width,
@@ -17,7 +24,7 @@ export const detectFaces = async image => {
   };
 
   const faces = await faceapi
-    .detectAllFaces(image)
+    .detectAllFaces(image, new faceapi.TinyFaceDetectorOptions())
     .withFaceLandmarks()
     .withFaceExpressions();
 
@@ -39,3 +46,7 @@ export const drawResults = async (results, canvas, type) => {
       break;
   }
 };
+
+export const createCanvas = (element) => {
+  faceapi.createCanvasFromMedia(element)
+}

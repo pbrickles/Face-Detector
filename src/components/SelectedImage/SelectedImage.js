@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {detectFaces, drawResults} from "../../helpers/detectFaces";
+import {detectFaces, drawResults} from "../../helpers/faceApi";
 
 import "./SelectedImage.css";
 import Results from "../Results/Results";
