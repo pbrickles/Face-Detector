@@ -1,32 +1,48 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 
-const Results = ({results}) => {
-  const [processedResults, setProcessedResults] = useState([]);
-  const processResults = () => {
-    const expressionResults = [];
-    results.forEach(result => {
-      const expressions = result.expressions.asSortedArray();
-      expressionResults.push(expressions[1]);
-    });
-    setProcessedResults(expressionResults);
-  };
+import "./Results.css";
 
-  useEffect(() => {
-    processResults();
-  });
-  if (processedResults.length > 0) {
+const Results = ({results, processing}) => {
+  if (processing && results) {
+    return <p>Thinking...</p>;
+  }
+  if (!processing && results.length > 0) {
     return (
-      <div>
-        {processedResults.length > 1 ?
-          processedResults.map((result, i) => (
-            <p key={i}>One of you is looking {result.expression}</p>
-          )) : (
-            <p>You are looking {processedResults[0].expression}</p>
-          )}
+      <div className="results">
+        {results.length > 1 ? (
+          <div>
+            <p>I think...</p>
+            {results.map((result, i) => (
+              <React.Fragment key={i}>
+                <p>
+                  One of you is probably {result.gender}, is looking{" "}
+                  {result.expressions.asSortedArray()[0].expression} and looks
+                  around {Math.round(result.age)}
+                </p>
+              </React.Fragment>
+            ))}
+          </div>
+        ) : (
+          <div>
+            <p>I think...</p>
+            <p>
+              You are looking{" "}
+              {results[0].expressions.asSortedArray()[0].expression}
+            </p>
+            <p>You look around {Math.round(results[0].age)} years old</p>
+            <p>I think you are a {results[0].gender}</p>
+          </div>
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div className="results">
+        <p>Hmmm... not sure.</p>
+        <p>Looking for a face...</p>
       </div>
     );
   }
-  return null;
 };
 
 export default Results;
