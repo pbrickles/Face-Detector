@@ -1,13 +1,27 @@
 .App {
-  background-color: rgb(11, 11, 11);
+  background-color: #007c6c;
   min-height: 100vh;
 }
 
 .App header {
-  display: flex;
   background: white;
 }
 
-.App__switcher span {
-  display: block;
+.App__header {
+  display: flex;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.App__switcher {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.App__switcher-switch {
+  margin: 0 0.25rem;
 }

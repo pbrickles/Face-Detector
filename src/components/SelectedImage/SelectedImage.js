@@ -27,11 +27,6 @@ const SelectedImage = ({img}) => {
 
   return (
     <div className="selected-image">
-      {processing && (
-        <span className="selected-image__processing">
-          Working out your expression...
-        </span>
-      )}
       <div className="selected-image__wrapper">
         <img
           ref={selected}
@@ -41,11 +36,9 @@ const SelectedImage = ({img}) => {
         />
         <canvas className="selected-image__overlay" ref={canvas} />
       </div>
-      {!processing && results && (
-        <div className="results__container">
-          <Results results={results} />
-        </div>
-      )}
+      <div className="results__container">
+        <Results results={results} processing={processing} />
+      </div>
     </div>
   );
 };

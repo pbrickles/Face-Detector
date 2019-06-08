@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useRef} from "react";
+import classnames from "classnames";
 
 import {detectFaces, drawResults} from "../../helpers/faceApi";
 
 import Button from "../Button/Button";
 import Gallery from "../Gallery/Gallery";
-import SelectedImage from "../SelectedImage/SelectedImage";
+import Results from "../Results/Results";
 import Webcam from "react-webcam";
 
 import "./Camera.css";
@@ -16,11 +17,23 @@ const Camera = ({photoMode}) => {
   const [photo, setPhoto] = useState(undefined);
   const [showGallery, setShowGallery] = useState(false);
   const [photos, setPhotos] = useState([]);
+  const [results, setResults] = useState([]);
 
   const getFaces = async () => {
     const faces = await detectFaces(camera.current.video);
-    await drawResults(camera.current.video, cameraCanvas.current, faces, "box");
-    // await drawResults(camera.current.video, cameraCanvas.current, faces, "landmarks");
+    await drawResults(
+      camera.current.video,
+      cameraCanvas.current,
+      faces,
+      "boxLandmarks"
+    );
+    setResults(faces);
+  };
+
+  const clearOverlay = canvas => {
+    canvas.current
+      .getContext("2d")
+      .clearRect(0, 0, canvas.width, canvas.height);
   };
 
   useEffect(() => {
@@ -28,7 +41,10 @@ const Camera = ({photoMode}) => {
       const ticking = setInterval(async () => {
         await getFaces();
       }, 80);
-      return () => clearInterval(ticking);
+      return () => {
+        clearOverlay(cameraCanvas);
+        clearInterval(ticking);
+      };
     }
   }, [photoMode]);
 
@@ -39,37 +55,49 @@ const Camera = ({photoMode}) => {
     const newPhotos = [...photos, imgSrc];
     setPhotos(newPhotos);
     setPhoto(imgSrc);
+    setShowGallery(true);
   };
   const reset = () => {
     setPhoto(undefined);
     setPhotos([]);
-    setShowGallery(true);
+    setShowGallery(false);
   };
 
   return (
     <div className="camera">
-      <Webcam audio={false} ref={camera} height={400} width={400} />
+      <div className="camera__wrapper">
+        <Webcam audio={false} ref={camera} width="100%" height="auto" />
+        <canvas
+          className={classnames(
+            "webcam-overlay",
+            photoMode && "webcam-overlay--hidden"
+          )}
+          ref={cameraCanvas}
+        />
+      </div>
 
       {photoMode ? (
         <>
           <div className="camera__button-container">
-            <Button onClick={toggleGallery}>
-              {showGallery ? "Hide " : "Show "} Gallery
-            </Button>
-            <Button onClick={capture}>Take Photo</Button>}
+            {photos.length > 0 && (
+              <Button onClick={toggleGallery}>
+                {showGallery ? "Hide " : "Show "} Gallery
+              </Button>
+            )}
+            <Button onClick={capture}>Take{photos.length > 0 ? " another " : " a "}Photo</Button>
             {photos.length > 0 && <Button onClick={reset}>Reset</Button>}
           </div>
 
-          {photo && (
-            <div className="camera selected-image">
-              <SelectedImage img={photo} />
-            </div>
+          {photos.length > 0 && (
+            <Gallery photos={photos} selected={photo} show={showGallery} />
           )}
-
-          {photos.length > 0 && showGallery && <Gallery photos={photos} />}
         </>
       ) : (
-        <canvas className="webcam-overlay" ref={cameraCanvas} />
+        <>
+          <div className="results__container">
+            <Results results={results} />
+          </div>
+        </>
       )}
     </div>
   );

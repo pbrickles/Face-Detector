@@ -7,7 +7,7 @@
 
 .gallery__container {
   margin-top: 2rem;
-  width: 100vw;
+  width: 100%;
   min-height: 500px;
   background-color: #aaa;
 }
@@ -20,4 +20,9 @@
   margin: 1rem;
   width: 150px;
   height: 120px;
+  opacity: 0.5;
+}
+
+.gallery__photo--selected {
+  opacity: 1;
 }

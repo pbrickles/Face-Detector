@@ -1,11 +1,33 @@
-.camera  {
-  width: 100vw;
+.camera {
+  width: 100%;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 }
 
+.camera__wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 1rem;
+}
+
+.camera__button-container {
+  margin-top: 1rem;
+}
+
 .webcam-overlay {
   position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.webcam-overlay--hidden {
+  display: none;
+}
+
+.results__container {
+  color: white;
 }
