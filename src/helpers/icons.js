@@ -1,6 +1,28 @@
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faVideo, faCamera} from "@fortawesome/free-solid-svg-icons";
+import {
+  faVideo,
+  faCamera,
+  faSpinner,
+  faAngry,
+  faGrinTongueSquint,
+  faGrimace,
+  faGrin,
+  faMeh,
+  faSadTear,
+  faSurprise,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const createFaLibrary = () => {
-  library.add(faVideo, faCamera);
+  library.add(
+    faVideo,
+    faCamera,
+    faSpinner,
+    faAngry,
+    faGrinTongueSquint,
+    faGrimace,
+    faGrin,
+    faMeh,
+    faSadTear,
+    faSurprise
+  );
 };
