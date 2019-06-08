@@ -15,20 +15,23 @@ const SelectedImage = ({img}) => {
     setProcessing(true);
     const faces = await detectFaces(selected.current);
     setResults(faces);
-    drawResults(faces, canvas.current, "landmarks");
+    drawResults(selected.current, canvas.current, faces, "box");
+    drawResults(selected.current, canvas.current, faces, "landmarks");
+
     setProcessing(false);
   };
 
   useEffect(() => {
-    canvas.current
-      .getContext("2d")
-      .clearRect(0, 0, canvas.current.width, canvas.current.height);
     getFaces();
   }, [img]);
 
   return (
     <div className="selected-image">
-      {processing && <span>Working out your expression...</span>}
+      {processing && (
+        <span className="selected-image__processing">
+          Working out your expression...
+        </span>
+      )}
       <div className="selected-image__wrapper">
         <img
           ref={selected}
@@ -36,7 +39,7 @@ const SelectedImage = ({img}) => {
           alt="selected"
           className="selected-image__image"
         />
-        <canvas ref={canvas} className="selected-image__overlay" />
+        <canvas className="selected-image__overlay" ref={canvas} />
       </div>
       {!processing && results && (
         <div className="results__container">

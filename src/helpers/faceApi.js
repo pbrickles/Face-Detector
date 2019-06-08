@@ -31,22 +31,23 @@ export const detectFaces = async image => {
   return faceapi.resizeResults(faces, displaySize);
 };
 
-export const drawResults = async (results, canvas, type) => {
+export const drawResults = async (image, canvas, results, type) => {
+  const displaySize = { width: image.width, height: image.height }
+  faceapi.matchDimensions(canvas, displaySize)
+  canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+  const resizedDetections = faceapi.resizeResults(results, displaySize);
   switch (type) {
     case "landmarks":
-      faceapi.draw.drawFaceLandmarks(canvas, results, 0.5);
+      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
       break;
     case "expressions":
-      faceapi.draw.drawFaceExpressions(canvas, results, 0.5);
+      faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
       break;
     case "box":
-      faceapi.draw.DrawBoxOptions(canvas, results, 0.5);
+      faceapi.draw.drawDetections(canvas, resizedDetections)
+      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
       break;
     default:
       break;
   }
 };
-
-export const createCanvas = (element) => {
-  faceapi.createCanvasFromMedia(element)
-}

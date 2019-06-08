@@ -1,7 +1,9 @@
 .selected-image {
-  display: block;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   padding: 2rem;
-  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   background-color: rgb(132, 197, 205)
 }
@@ -9,9 +11,23 @@
 .selected-image__wrapper {
   position: relative;
   min-height: 400px;
+  width: 50%;
 }
 
-.selected-image__image, .selected-image__overlay {
-  display: block;
+.selected-image__processing {
+  flex-basis:  100%;
+}
+
+.results__container {
+  width: 50%;
+}
+
+.selected-image__image {
+  position: relative;
+}
+
+.selected-image__overlay {
   position: absolute;
+  left: 0;
+  top: 0;
 }
