@@ -1,3 +1,7 @@
+A face detection concept using [React](https://reactjs.org/) and the [face-api.js](https://github.com/justadudewhohacks/face-api.js?files=1) library.
+
+It includes a photo capture mode with a gallery, and a real-time face detection mode.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
