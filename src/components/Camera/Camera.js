@@ -20,14 +20,16 @@ const Camera = ({photoMode}) => {
   const [results, setResults] = useState([]);
 
   const getFaces = async () => {
-    const faces = await detectFaces(camera.current.video);
-    await drawResults(
-      camera.current.video,
-      cameraCanvas.current,
-      faces,
-      "boxLandmarks"
-    );
-    setResults(faces);
+    if (camera.current !== null) {
+      const faces = await detectFaces(camera.current.video);
+      await drawResults(
+        camera.current.video,
+        cameraCanvas.current,
+        faces,
+        "boxLandmarks"
+      );
+      setResults(faces);
+    }
   };
 
   const clearOverlay = canvas => {
@@ -37,7 +39,7 @@ const Camera = ({photoMode}) => {
   };
 
   useEffect(() => {
-    if (!photoMode) {
+    if (!photoMode && camera !== null) {
       const ticking = setInterval(async () => {
         await getFaces();
       }, 80);
@@ -45,6 +47,8 @@ const Camera = ({photoMode}) => {
         clearOverlay(cameraCanvas);
         clearInterval(ticking);
       };
+    } else {
+      return clearOverlay(cameraCanvas);
     }
   }, [photoMode]);
 

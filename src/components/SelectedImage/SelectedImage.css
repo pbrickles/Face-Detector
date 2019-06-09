@@ -4,16 +4,16 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  background-color: rgb(132, 197, 205);
+  background-color: #fff;
 }
 
 .selected-image__wrapper {
-  position: relative;  
+  position: relative;
   margin: 1rem auto 0;
 }
 
 .selected-image__wrapper img {
-  position: relative;  
+  position: relative;
   width: 100%;
 }
 
@@ -36,10 +36,16 @@
 }
 
 @media only screen and (min-width: 768px) {
-  .selected-image__wrapper, .results__container {
+  .selected-image {
+    padding-top: 4px;
+  }
+
+  .selected-image__wrapper,
+  .selected-image .results__container {
     width: 50%;
     margin: 0;
   }
+
   .results__container p {
     padding: 0 1rem;
   }

@@ -11,7 +11,7 @@ const Results = ({results, processing}) => {
   if (processing && results) {
     return <Spinner />;
   }
-  if (!processing && results.length > 0) {
+  if (!processing && results && results.length > 0) {
     return (
       <div className="results">
         {results.length > 1 ? (
@@ -74,8 +74,7 @@ const Results = ({results, processing}) => {
   } else {
     return (
       <div className="results">
-        <p>Hmmm... not sure.</p>
-        <p>Looking for a face...</p>
+        <Spinner />
       </div>
     );
   }

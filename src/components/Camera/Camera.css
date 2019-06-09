@@ -9,9 +9,14 @@
 
 .camera__wrapper {
   position: relative;
-  width: 100%;
+  width: 80%;
   max-width: 680px;
-  margin: 0 1rem;
+  margin: 0 1rem 1rem;
+}
+
+.camera__wrapper video {
+  border: 3px solid #fff;
+  border-radius: 3px;
 }
 
 .camera__button-container {
@@ -29,5 +34,25 @@
 }
 
 .results__container {
-  color: white;
+  background-color: #fff;
+  width: 100%;
+  padding-top: 1rem;
+  min-height: 250px;
+  display: flex;
+  justify-content: center;
+}
+
+.results__wrapper {
+  padding: 1rem 0 0 1rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .camera__wrapper {
+    width: 100%;
+    margin: 0 1rem 1rem;
+  }
+
+  .results__wrapper {
+    padding: 0;
+  }
 }
