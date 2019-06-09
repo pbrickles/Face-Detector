@@ -6,3 +6,7 @@
   display: flex;
   margin-top: 1rem;
 }
+
+.results__emoji svg {
+  margin-right: 0.75rem;
+}

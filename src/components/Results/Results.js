@@ -28,9 +28,15 @@ const Results = ({results, processing}) => {
                 </div>
                 <FontAwesomeIcon
                   icon={mapExpressionToEmoji(
-                    results[0].expressions.asSortedArray()[0].expression
+                    result.expressions.asSortedArray()[0].expression
                   )}
-                  size="5x"
+                  size="4x"
+                />
+                <FontAwesomeIcon
+                  icon={mapExpressionToEmoji(
+                    result.gender
+                  )}
+                  size="4x"
                 />
               </div>
             ))}
@@ -46,13 +52,20 @@ const Results = ({results, processing}) => {
               <p>You look around {Math.round(results[0].age)} years old</p>
               <p>I think you are a {results[0].gender}</p>
             </div>
-            <div>
+            <div className="results__emoji">
               <FontAwesomeIcon
                 icon={mapExpressionToEmoji(
                   results[0].expressions.asSortedArray()[0].expression
                 )}
-                size="5x"
+                size="4x"
               />
+              <FontAwesomeIcon
+                icon={mapExpressionToEmoji(
+                  results[0].gender
+                )}
+                size="4x"
+              />
+
             </div>
           </div>
         )}

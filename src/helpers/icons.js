@@ -10,6 +10,9 @@ import {
   faMeh,
   faSadTear,
   faSurprise,
+  faMale,
+  faFemale,
+  faTimesCircle
 } from "@fortawesome/free-solid-svg-icons";
 
 export const createFaLibrary = () => {
@@ -23,6 +26,9 @@ export const createFaLibrary = () => {
     faGrin,
     faMeh,
     faSadTear,
-    faSurprise
+    faSurprise,
+    faMale,
+    faFemale,
+    faTimesCircle
   );
 };

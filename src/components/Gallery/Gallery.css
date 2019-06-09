@@ -16,11 +16,25 @@
   text-align: center;
 }
 
-.gallery__photo {
+.gallery__image-wrapper {
+  position: relative;
   margin: 1rem;
   width: 150px;
   height: 120px;
+}
+
+.gallery__photo {
+  width: 100%;
   opacity: 0.5;
+  cursor: pointer;
+}
+
+.gallery__photo-delete {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  color: rgba(255, 109, 109, 0.762);
+  cursor: pointer;
 }
 
 .gallery__photo--selected {

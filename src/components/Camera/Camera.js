@@ -62,6 +62,12 @@ const Camera = ({photoMode}) => {
     setPhotos([]);
     setShowGallery(false);
   };
+  const deleteImage = target => {
+    const newPhotos = photos.filter(photo => {
+      return photo !== target;
+    });
+    setPhotos(newPhotos);
+  };
 
   return (
     <div className="camera">
@@ -84,12 +90,19 @@ const Camera = ({photoMode}) => {
                 {showGallery ? "Hide " : "Show "} Gallery
               </Button>
             )}
-            <Button onClick={capture}>Take{photos.length > 0 ? " another " : " a "}Photo</Button>
+            <Button onClick={capture}>
+              Take{photos.length > 0 ? " another " : " a "}Photo
+            </Button>
             {photos.length > 0 && <Button onClick={reset}>Reset</Button>}
           </div>
 
           {photos.length > 0 && (
-            <Gallery photos={photos} selected={photo} show={showGallery} />
+            <Gallery
+              photos={photos}
+              selected={photo}
+              show={showGallery}
+              deleteImage={deleteImage}
+            />
           )}
         </>
       ) : (

@@ -3,13 +3,14 @@ import classnames from "classnames";
 import SelectedImage from "../SelectedImage/SelectedImage";
 
 import "./Gallery.css";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Gallery = props => {
   const [selected, setSelected] = useState(props.selected);
   const [photos, setPhotos] = useState(props.photos);
 
   useEffect(() => {
-    if (photos.length < props.photos.length) {
+    if (photos.length !== props.photos.length) {
       setSelected(props.selected);
       setPhotos(props.photos);
     }
@@ -26,18 +27,25 @@ const Gallery = props => {
             <h2>Gallery</h2>
             <div className="gallery">
               {photos.map((photo, i) => (
-                <img
-                  src={photo}
-                  key={i}
-                  alt={`image_${i}`}
-                  onClick={() => {
-                    setSelected(photo);
-                  }}
-                  className={classnames(
-                    "gallery__photo",
-                    photo === selected && "gallery__photo--selected"
-                  )}
-                />
+                <div className="gallery__image-wrapper" key={i}>
+                  <img
+                    src={photo}
+                    alt={`image_${i}`}
+                    onClick={() => {
+                      setSelected(photo);
+                    }}
+                    className={classnames(
+                      "gallery__photo",
+                      photo === selected && "gallery__photo--selected"
+                    )}
+                  />
+                  <FontAwesomeIcon
+                    icon="times-circle"
+                    size="sm"
+                    className="gallery__photo-delete"
+                    onClick={() => props.deleteImage(photo)}
+                  />
+                </div>
               ))}
             </div>
           </>

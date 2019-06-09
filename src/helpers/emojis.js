@@ -6,6 +6,8 @@ const emojiMap = {
   neutral: "meh",
   sad: "sad-tear",
   surprised: "surprise",
+  male: "male",
+  female: "female",
 };
 
-export const mapExpressionToEmoji = (expression) => emojiMap[expression];
+export const mapExpressionToEmoji = expression => emojiMap[expression];
