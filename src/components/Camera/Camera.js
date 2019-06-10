@@ -9,6 +9,7 @@ import Results from "../Results/Results";
 import Webcam from "react-webcam";
 
 import "./Camera.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Camera = ({ photoMode }) => {
   const camera = useRef();
@@ -94,8 +95,8 @@ const Camera = ({ photoMode }) => {
                 {showGallery ? "Hide " : "Show "} Gallery
               </Button>
             )}
-            <Button onClick={capture}>
-              Take{photos.length > 0 ? " another " : " a "}Photo
+            <Button onClick={capture} className="camera__button--snap">
+              <FontAwesomeIcon icon="camera" size="md" />
             </Button>
             {photos.length > 0 && <Button onClick={reset}>Reset</Button>}
           </div>

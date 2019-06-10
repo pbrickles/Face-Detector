@@ -24,6 +24,13 @@
 
 .camera__button-container {
   margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.camera__button--snap {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 }
 
 .webcam-overlay {
