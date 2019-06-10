@@ -2,9 +2,17 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   background-color: #fff;
+}
+
+.selected-image__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 80%;
 }
 
 .selected-image__wrapper {
@@ -40,10 +48,17 @@
     padding-top: 4px;
   }
 
-  .selected-image__wrapper,
-  .selected-image .results__container {
-    width: 50%;
+  .selected-image__inner {
+    width: 60%;
+  }
+
+  .selected-image__wrapper {
+    width: 40%;
     margin: 0;
+  }
+
+  .selected-image .results__container {
+    width: 60%;
   }
 
   .results__container p {

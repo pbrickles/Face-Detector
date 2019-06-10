@@ -8,6 +8,9 @@
 }
 
 .camera__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   width: 80%;
   max-width: 680px;
@@ -25,8 +28,6 @@
 
 .webcam-overlay {
   position: absolute;
-  left: 0;
-  top: 0;
 }
 
 .webcam-overlay--hidden {

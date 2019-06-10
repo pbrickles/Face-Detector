@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import classnames from "classnames";
 
-import {detectFaces, drawResults} from "../../helpers/faceApi";
+import { detectFaces, drawResults } from "../../helpers/faceApi";
 
 import Button from "../Button/Button";
 import Gallery from "../Gallery/Gallery";
@@ -10,7 +10,7 @@ import Webcam from "react-webcam";
 
 import "./Camera.css";
 
-const Camera = ({photoMode}) => {
+const Camera = ({ photoMode }) => {
   const camera = useRef();
   const cameraCanvas = useRef();
 
@@ -76,7 +76,7 @@ const Camera = ({photoMode}) => {
   return (
     <div className="camera">
       <div className="camera__wrapper">
-        <Webcam audio={false} ref={camera} width="100%" height="auto" />
+        <Webcam audio={false} ref={camera} width="40%" height="auto" />
         <canvas
           className={classnames(
             "webcam-overlay",
