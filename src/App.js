@@ -18,7 +18,7 @@ function App() {
       <header>
         <div className="App__header">
           <h1>
-            Chorlton C of E Primary School <span>STEM Face Detector</span>
+            <span>Face Detector</span>
           </h1>
           <div className="App__switcher">
             <FontAwesomeIcon
